@@ -1,0 +1,110 @@
+<!-- In views/visualize.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualize User Details</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="cityChart"></canvas>
+    <canvas id="regionChart"></canvas>
+    <canvas id="countryChart"></canvas>
+    <canvas id="genderChart"></canvas>
+    <canvas id="civilStatusChart"></canvas>
+
+    <script>
+        const cityCounts = <%- JSON.stringify(cityCounts) %>;
+        const regionCounts = <%- JSON.stringify(regionCounts) %>;
+        const countryCounts = <%- JSON.stringify(countryCounts) %>;
+        const genderCounts = <%- JSON.stringify(genderCounts) %>;
+        const civilStatusCounts = <%- JSON.stringify(civilStatusCounts) %>;
+
+        let totalRecords = Object.values(cityCounts).reduce((a, b) => a + b, 0);
+
+        new Chart(document.getElementById('cityChart'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(cityCounts),
+                datasets: [{
+                    label: 'Cities',
+                    data: Object.values(cityCounts),
+                    backgroundColor: 'blue',
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: totalRecords,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                if (Math.floor(value) === value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        new Chart(document.getElementById('regionChart'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(regionCounts),
+                datasets: [{
+                    label: 'Regions',
+                    data: Object.values(regionCounts),
+                    backgroundColor: 'red',
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: totalRecords,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                if (Math.floor(value) === value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        new Chart(document.getElementById('countryChart'), {
+            type: 'bar',
+            data: {
+                labels: Object.keys(countryCounts),
+                datasets: [{
+                    label: 'Countries',
+                    data: Object.values(countryCounts),
+                    backgroundColor: 'green',
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: totalRecords,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                if (Math.floor(value) === value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        
+        // Repeat for other charts, changing the variable and label as needed
+    </script>
+</body>
+</html>
