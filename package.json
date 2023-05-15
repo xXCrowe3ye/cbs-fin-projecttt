@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node app",
-    "lint:ejs": "ejslint views/index.ejs"
+    "lint:ejs": "ejslint views/index.ejs",
+    "build": "npm i"
   },
   "author": "handog",
   "license": "ISC",
